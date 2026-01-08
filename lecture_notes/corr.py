@@ -13,8 +13,10 @@ eps_vals = np.array([0.1, 10, 100])
 # y = x**3 + eps * xi for all eps values, and store in data frame
 eps= eps_vals[0]
 y = x**3 + eps * xi
+# store first set of data in data frame
 cubic_df = pd.DataFrame({'x': x, 'y': y, 'eps': eps})
 
+# append data for other eps values
 for eps in eps_vals[1:]:
     y = x**3 + eps * xi
     temp_df = pd.DataFrame({'x': x, 'y': y, 'eps': eps})
@@ -25,6 +27,9 @@ cubic_df.eps = cubic_df.eps.astype('category')
 
 
 fig, ax = plt.subplots()
+# plot each group with different color
+# iterating over df.groupby('eps') extracts the data matching this eps value
+# alpha controls transparency
 for (eps, group) in cubic_df.groupby('eps'):
     ax.scatter(group['x'], group['y'],alpha=0.6, label=rf"$\epsilon={eps}$")
 ax.set_title(r'$y=x^3 + \epsilon \cdot \xi$')
