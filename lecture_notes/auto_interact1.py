@@ -11,7 +11,7 @@ Auto.cylinders = Auto['cylinders'].astype('category')
 Auto.origin = Auto['origin'].astype('category')
 
 # build design matrix with interaction terms
-design = MS(['weight', ('cylinders', 'weight')])
+design = MS(['cylinders', 'weight', ('cylinders', 'weight')])
 X = design.fit_transform(Auto)
 
 # fit model
@@ -27,7 +27,7 @@ for i, (cyl, g) in enumerate(Auto.groupby('cylinders')):
     if cyl>3:
         xrange = np.asarray([g['weight'].min(), g['weight'].max()])
         slope = results.params['weight'] + results.params[f'cylinders[{cyl}]:weight']
-        ax.plot(xrange,  results.params['intercept']  + slope *xrange, color=f'C{i}')
+        ax.plot(xrange,  results.params['intercept'] + results.params[f'cylinders[{cyl}]'] + slope *xrange, color=f'C{i}')
     else:
         xrange = np.asarray([g['weight'].min(), g['weight'].max()])
         slope = results.params['weight']
