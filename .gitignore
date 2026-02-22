@@ -212,3 +212,9 @@ __marimo__/
 
 # Scratch files
 scratch/*
+
+# generated figs
+lectures/*.pdf
+lectures/*.png
+lecture_notes/*.pdf
+lecture_notes/*.png
